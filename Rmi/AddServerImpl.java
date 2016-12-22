@@ -3,6 +3,10 @@ The AddServerImpl Class contains the details of the server implementation.
 It manages the local and the global snapshot algorithm, the transfer and the
 update money functions and all the variables to make the network consistent.
 */
+package Rmi;
+
+
+
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

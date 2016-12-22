@@ -1,10 +1,11 @@
-/*
+package Client;/*
 The client Class create a client with a specific id, associated to the
 corresponding server. The client continously send money to a random server,
 with a delay from 2 to 10 milliseconds. Every 1000 money transactions the 
 client with id = 0, communicates to its server to start a gloabal snapshot 
 algorithm.
 */
+import Rmi.AddServer;
 
 import java.io.IOException;
 import java.rmi.Naming;
@@ -15,14 +16,14 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
-public class RmiClient4 {
-
+public class RmiClient2 {
+    
     public static void main(String[] args) throws IOException, NotBoundException {
         
         System.setProperty("sun.rmi.transport.tcp.responseTimeout","100000");
 
-        int id=4;                                          
-        Map<Integer,AddServer> server=new TreeMap<>();
+        int id=2;                                        
+        Map<Integer, AddServer> server=new TreeMap<>();
 
         int seqNum=0;
         int num_server=5;
@@ -40,7 +41,7 @@ public class RmiClient4 {
         server.put(4,add4);
         
         Random random = new Random();
-
+        
         int money=getRandomAmount(server.get(id).getAmount());
 
         
@@ -51,6 +52,7 @@ public class RmiClient4 {
                 while(y-x<random.nextInt(5)){
                     y = System.currentTimeMillis();
                 }
+
                 int destination = getRandomBank(num_server);
 
                 String bank = server.get(destination).getAddress();
@@ -63,7 +65,7 @@ public class RmiClient4 {
                                 server.get(destination).transfer(id,seqNum, money);
                                 //server.get(id).updateAmount(money,0);
                         }
-                        }
+                    }
                     catch(Exception e){
                         e.printStackTrace();
                     }
@@ -74,6 +76,7 @@ public class RmiClient4 {
         } catch (Exception e) {
             System.out.println("Client failed"+e);
         }finally {
+
             System.out.println("The client's work is finishing!");
         }
     }
